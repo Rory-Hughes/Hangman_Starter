@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Game Controller Demo</title>
+        <meta charset="UTF-8" />
+        <script src="lib/GameController.js" type="text/javascript"></script>
+        <script>
+            window.onload = function () {
+                let report;
+
+                // start a new game with the game word
+                GameController.newGame("JavaScript");
+                console.log("Called newGame('JavaScript')");
+                report = GameController.report();
+                console.log(report);
+
+                // process a guess - letter is in the game word
+                GameController.processLetter("P");
+                console.log("Called processLetter('P')");
+                report = GameController.report();
+                console.log(report);
+
+                // process a guess - letter is in the game word more than once
+                GameController.processLetter("A");
+                console.log("Called processLetter('A')");
+                report = GameController.report();
+                console.log(report);
+
+                // process a guess - letter is NOT in the game word
+                GameController.processLetter("Z");
+                console.log("Called processLetter('Z')");
+                report = GameController.report();
+                console.log(report);
+            };
+        </script>
+    </head>
+    <body>
+        <p>Look in console to see output.</p>
+    </body>
+</html>
