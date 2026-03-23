@@ -37,6 +37,13 @@ const lettersContainer = document.querySelector('#letters-container');
 const guessesDisplay = document.querySelector('#guesses-display');
 const messageDisplay = document.querySelector('#message-display');
 
+
+
+// Initial setup call
+createLetterButtons();
+
+}
+
 // 3. Initialize the Letter Keyboard using innerHTML (createElement/appendChild are prohibited) 
 function createLetterButtons() {
     let htmlString = "";
@@ -83,6 +90,14 @@ startBtn.onclick = function() {
     newGameBtn.disabled = true;
     messageDisplay.innerHTML = ''; 
 
+    // Update the Category Display on the page
+    const currentCategoryDisplay = document.querySelector('#current-category-display');
+    currentCategoryDisplay.innerHTML = selectedCategoryName.toUpperCase();
+
+    // Reset the Hangman Image to the gallows (0.png)
+    const hangmanImg = document.querySelector('#hangman-img');
+    hangmanImg.src = "images/0.png";
+
     // Get selected category words
     let selectedCategoryName = categorySelect.value;
     let wordsArray = [];
@@ -128,6 +143,9 @@ function updateUI() {
 
     // Update remaining guesses 
     guessesDisplay.innerHTML = report.guessesRemaining; 
+    const hangmanImg = document.querySelector('#hangman-img');
+    let imageNumber = 6 - report.guessesRemaining; 
+    hangmanImg.src = "images/" + imageNumber + ".png";
 
     // Check for win/loss conditions
     if (report.gameState === "GAME_OVER_WIN") {
@@ -150,7 +168,26 @@ function endGame() {
     }
 }
 
-// Initial setup call
-createLetterButtons();
 
-}
+
+
+/*
+1. Displaying the CategoryIn your index.html, 
+you have a span with id="current-category-display". 
+To update this when the game starts, you need to select that element and set its content within the startBtn.onclick function.
+
+2. Updating the Hangman ImageThe GameController.js provides a report() method that includes guessesRemaining. 
+Since the game starts with 6 allowed guesses and decrements by 1 for each mistake , you can use that number to determine which image to display.
+Assuming your images are named sequentially (e.g., 0.png for 0 mistakes/gallows, 1.png for 1 mistake, etc.), 
+you can calculate the image index as: $6 - \text{guessesRemaining}$.Updated hangman.js Snippets
+Here are the specific changes to add to your existing hangman.js file while staying within your allowed features:
+In the startBtn.onclick function:Add these lines to update the category display and reset the image when a new game begins:
+
+Important Notes for ImplementationImage Filenames: 
+Ensure your images folder has files named 0.png, 1.png, 2.png, 3.png, 4.png, 5.png, and 6.png.
+0.png should be the gallows only.
+6.png should be the full hangman.
+Allowed Features: I used querySelector instead of getElementById and innerHTML instead of appendChild to ensure you don't lose marks for using prohibited features.
+Context: I avoided using the this keyword, as it is strictly prohibited in your assignment.
+Would you like me to help you refine the CSS next to make sure the category panel and letter buttons align correctly with your design mockups?
+*/
