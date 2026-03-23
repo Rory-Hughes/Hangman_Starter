@@ -1,152 +1,132 @@
-html {
-    font-size: 16px;
-}
-/* General Setup */
-:root {
-    --primary-blue: #0056b3;
-    --success-green: #28a745;
-    --danger-red: #dc3545;
-    --light-gray: #f8f9fa;
-    --dark-gray: #343a40;
-}
-
+/* Layout Overhaul */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--light-gray);
-    color: var(--dark-gray);
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
+    padding: 0;
 }
 
-/* Header & Navigation */
 header {
-    background-color: var(--dark-gray);
-    color: white;
-    width: 100%;
-    padding: 1rem 0;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    background-color: #ffffff;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between; /* Pushes Title left, Button right */
+    align-items: center;
+    border-bottom: 2px solid #ddd;
+}
+
+header h1 {
+    margin: 0;
+    color: #333;
 }
 
 #new-game-btn {
-    background-color: var(--primary-blue);
+    background-color: #007bff;
     color: white;
     border: none;
     padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+
+/* Main Game Area: Image on Left, Info on Right */
+main {
+    max-width: 1000px;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: 350px 1fr; /* Fixed width for image, rest for text */
+    gap: 30px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+#visuals-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid #eee;
+}
+
+#hangman-img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Info Column */
+#game-info-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#game-status {
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+
+#word-display {
+    font-size: 3rem;
+    letter-spacing: 12px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    margin: 20px 0;
+    color: #222;
+}
+
+/* THE LETTERS: Strictly one line */
+#letters-container {
+    grid-column: 1 / -1; /* Spans across both columns */
+    display: flex;
+    flex-wrap: nowrap; /* PREVENTS WRAPPING */
+    justify-content: space-between;
+    gap: 4px;
+    padding: 20px 0;
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.letter-btn {
+    flex: 1; /* Makes every button take up equal space */
+    min-width: 0; /* Allows buttons to shrink to fit the row */
+    padding: 12px 0;
+    font-size: 1rem;
+    font-weight: bold;
+    border: 1px solid #007bff;
+    background-color: #ffffff;
+    color: #007bff;
     border-radius: 4px;
     cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s;
+    text-align: center;
 }
 
-#new-game-btn:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+.letter-btn:hover:not(:disabled) {
+    background-color: #e7f3ff;
 }
 
-/* Category Panel (The "Popup" Look) */
+.letter-btn:disabled {
+    background-color: #f0f0f0;
+    color: #ccc;
+    border-color: #ddd;
+}
+
+/* Win/Loss Styles */
+.win-text { color: #28a745; font-size: 1.5rem; font-weight: bold; }
+.lose-text { color: #dc3545; font-size: 1.5rem; font-weight: bold; }
+
+/* Category Modal overlay */
 #category-panel {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.3);
-    z-index: 100;
-    text-align: center;
-}
-
-/* Game Area Layout */
-main {
-    max-width: 800px;
-    width: 90%;
-    margin-top: 2rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-#game-status {
-    grid-column: 1 / -1;
-    display: flex;
-    justify-content: space-around;
-    background: #fff;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-#visuals-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-}
-
-#hangman-img {
-    height: 250px;
-    margin-bottom: 20px;
-}
-
-#word-display {
-    font-size: 2.5rem;
-    letter-spacing: 0.5rem;
-    font-family: monospace;
-    font-weight: bold;
-}
-
-/* Letter Keyboard */
-#letters-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-}
-
-.letter-btn {
-    width: 45px;
-    height: 45px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    border: 1px solid #ddd;
-    background-color: #fff;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: all 0.2s;
-}
-
-.letter-btn:hover:not(:disabled) {
-    background-color: var(--primary-blue);
-    color: white;
-    transform: translateY(-2px);
-}
-
-.letter-btn:disabled {
-    background-color: #eee;
-    color: #bbb;
-}
-
-/* Win/Loss Messages */
-#message-display {
-    grid-column: 1 / -1;
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 1rem 0;
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 600px) {
-    main {
-        grid-template-columns: 1fr;
-    }
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    z-index: 1000;
 }

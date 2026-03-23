@@ -16,6 +16,8 @@
     </header>
 
     <main>
+        
+        
         <div id="category-panel" style="display: none;">
             <h2>Select a Category</h2>
             <select id="category-select">
@@ -23,23 +25,22 @@
             <button id="start-btn">OK</button>
         </div>
 
-        <section id="game-status">
-            <p>Guesses Remaining: <span id="guesses-display">6</span></p>
-            <p>Category: <span id="current-category-display">-</span></p>
-        </section>
-
         <section id="visuals-area">
-            <div id="hangman-graphic">
-                <img id="hangman-img" src="images/0.png" alt="Hangman state 0">
-            </div>
-
-            <div id="word-display"></div>
+        <img id="hangman-img" src="images/0.png" alt="Hangman state 0">
         </section>
 
-        <div id="message-display"></div>
+        <div id="game-info-column">
+            <section id="game-status">
+                <p>Category: <span id="current-category-display">-</span></p>
+                <p>Guesses Remaining: <span id="guesses-display">6</span></p>
+            </section>
+            
+            <div id="word-display"></div>
+            <div id="message-display"></div>
+        </div>
 
         <section id="letters-container">
-            </section>
+        </section>
     </main>
 
     </body>
