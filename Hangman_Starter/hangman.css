@@ -1,3 +1,4 @@
+/* General Page Styling */
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
     background-color: #d1e9ff; 
@@ -5,183 +6,199 @@ body {
     padding: 0;
 }
 
-
+/* --- HEADER SECTION --- */
 header {
     background-color: #a0c4ff; 
-    padding: 40px 20px;
+    padding: 30px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
     border-bottom: 3px solid #333;
-    min-height: 200px;
+    min-height: 180px;
     justify-content: center;
 }
 
-
 #title {
     font-family: 'Slackey', cursive;
-    font-size: 5rem;
+    font-size: 4rem;
     color: #333;
-    margin: 0 0 20px 0;
+    margin: 0 0 15px 0;
     text-transform: uppercase;
     letter-spacing: 2px;
 }
-
 
 #new-game-btn {
     background-color: #d1d1d1;
     border: 2px solid #333;
     border-radius: 12px;
     padding: 10px 40px;
-    font-size: 1.5rem;
-    font-family: 'Patrick Hand', cursive;
+    font-size: 1.2rem;
+    font-family: 'Segoe UI', sans-serif;
     cursor: pointer;
     transition: transform 0.1s;
     box-shadow: 2px 3px 0px rgba(0,0,0,0.2);
     text-transform: uppercase;
 }
-#new-game-btn:hover {
-    background-color: #e0e0e0;
-    transform: translateY(-2px);
-}
 
-#new-game-btn:active {
-    transform: translateY(1px);
-}
-
-/* Category Badge (positioned to the right) */
 #category {
-    background-color: #f9d976; /* Yellow from image */
-    border: 2px solid #d94141; /* Reddish border from image */
-    border-radius: 15px;
-    padding: 0px 25px;
+    background-color: #f9d976;
+    border: 2px solid #d94141;
+    border-radius: 12px;
+    padding: 0px 20px;
     position: absolute;
     right: 40px;
-    bottom: 30px;
-    font-size: 1.8rem;
-    box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
-}
-
-#category p {
-    margin: 10px 0;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    #title { font-size: 3rem; }
-    #category { 
-        position: static; 
-        margin-top: 20px; 
-        right: auto; 
-        bottom: auto; 
-    }
-}
-
-
-main {
-    margin: 30px auto;
-    display: grid;
-    grid-template-columns: 350px 1fr;
-    grid-template-areas: 
-        "image info"
-        "image keyboard"; 
-    gap: 20px;
-    padding: 30px;
-    background-color: #d1e9ff; 
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-
-#visuals-area { 
-    grid-area: image; 
-    display: flex;
-    justify-content: center;
-    border-right: 2px solid #f0f0f0;
-}
-
-#game-info-column { 
-    grid-area: info; 
-    padding-left: 20px;
-    background-color: white;
-    border-color: #333;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-#letters-container { 
-    grid-area: keyboard; 
-    
-    justify-content: space-between;
-    padding-top: 30px;
-    margin-top: 20px;
-    border-top: 2px solid #f0f0f0;
-}
-
-
-#word-display {
-    font-size: 2.8rem;
-    letter-spacing: 10px;
-    font-family: 'Courier New', monospace;
+    bottom: 25px;
+    font-size: 1.5rem;
     font-weight: bold;
-    margin: 20px 0;
-    white-space: nowrap;
-    overflow-x: auto;   
 }
 
+/* --- MAIN LAYOUT --- */
+main {
+    max-width: 1200px;
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 40px;
+    padding: 0 20px;
+}
 
-.win-text { color: #28a745; font-size: 1.5rem; }
-.lose-text { color: #dc3545; font-size: 1.5rem; }
-
+/* Left side: Gallows */
+#visuals-area {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
 
 #hangman-img {
-    max-width: 100%;
+    width: 100%;
+    max-width: 350px;
     height: auto;
 }
 
-
-#game-status {
-    margin-bottom: 30px;
-    font-size: 1.1rem;
+/* Right side: Game Play Area */
+#game-info-column {
+    display: flex;
+    flex-direction: column;
+    position: relative; /* For absolute positioning the guesses badge */
+    border: 3px solid #333;
+    background-color: white;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
-
-.letter-btn {
-    flex: 1; 
-    min-width: 0; 
-    padding: 12px 0;
-    font-size: 1rem;
-    font-weight: bold;
-    border: 1px solid #007bff;
-    background-color: #ffffff;
-    color: #007bff;
+/* Guesses Remaining Badge */
+#game-status {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #e9ecef;
+    border: 2px solid #333;
+    padding: 5px 15px;
     border-radius: 4px;
+    font-weight: bold;
+    z-index: 10;
+}
+
+#game-status p {
+    margin: 0;
+}
+
+/* Word Display (White area) */
+#word-display {
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3.5rem;
+    font-weight: bold;
+    font-family: 'Slackey', cursive;
+    letter-spacing: 15px;
+    padding: 20px;
+    border-bottom: 3px solid #333;
+}
+
+/* Keyboard Area (Gray area) */
+#letters-container {
+    background-color: #ced4da;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 12px;
+    justify-content: center;
+}
+
+/* Individual Keys */
+.letter-btn {
+    background-color: white;
+    border: 2px solid #333;
+    border-radius: 8px;
+    padding: 10px 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Slackey', cursive;
     cursor: pointer;
+    box-shadow: 1px 2px 0px rgba(0,0,0,0.2);
+    transition: transform 0.05s;
     text-align: center;
+    min-width: 50px;
 }
 
 .letter-btn:hover:not(:disabled) {
-    background-color: #e7f3ff;
+    background-color: #f8f9fa;
+    transform: translateY(-2px);
+}
+
+.letter-btn:active:not(:disabled) {
+    transform: translateY(1px);
 }
 
 .letter-btn:disabled {
-    background-color: #f0f0f0;
-    color: #ccc;
-    border-color: #ddd;
+    background-color: #adb5bd;
+    color: #6c757d;
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.6;
 }
 
+/* Message Display (Win/Loss) */
+#message-display {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 20px;
+}
 
+.win-text { color: #28a745; }
+.lose-text { color: #dc3545; }
 
+/* Category Modal */
 #category-panel {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    padding: 40px;
+    border-radius: 15px;
+    border: 3px solid #333;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
     z-index: 1000;
+    text-align: center;
+}
+
+#category-select {
+    padding: 10px;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+#start-btn {
+    background-color: #a0c4ff;
+    border: 2px solid #333;
+    padding: 10px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
 }
