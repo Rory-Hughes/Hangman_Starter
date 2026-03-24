@@ -11,11 +11,18 @@
 
     <body>
         <header>
-        <h1>Hangman!</h1>
-        <button id="new-game-btn">NEW GAME</button>
-    </header>
+            <h1 id="title">Hangman!</h1>
+            <button id="new-game-btn">NEW GAME</button>
+            <div id="category"><p>Category: <span id="current-category-display">-</span></p></div>
+        </header>
+
+
+        <section id="game-status">
+                <p>Guesses Remaining: <span id="guesses-display">6</span></p>
+        </section>
 
     <main>
+        
         
         
         <div id="category-panel" style="display: none;">
@@ -26,21 +33,20 @@
         </div>
 
         <section id="visuals-area">
-        <img id="hangman-img" src="images/0.png" alt="Hangman state 0">
+            <img id="hangman-img" src="images/0.png" alt="Hangman state 0">
         </section>
 
+        
+
         <div id="game-info-column">
-            <section id="game-status">
-                <p>Category: <span id="current-category-display">-</span></p>
-                <p>Guesses Remaining: <span id="guesses-display">6</span></p>
-            </section>
+            
             
             <div id="word-display"></div>
             <div id="message-display"></div>
+            <div id="letters-container"></div>
         </div>
 
-        <section id="letters-container">
-        </section>
+        
     </main>
 
     </body>
