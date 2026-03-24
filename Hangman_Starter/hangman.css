@@ -126,6 +126,7 @@ main {
     grid-template-columns: repeat(9, 1fr);
     gap: 12px;
     justify-content: center;
+    flex-grow: 1;
 }
 
 /* Individual Keys */
