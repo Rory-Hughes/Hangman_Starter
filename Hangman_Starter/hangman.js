@@ -56,7 +56,7 @@ function createLetterButtons() {
     let buttons = document.querySelectorAll('.letter-btn');
     for (let btn of buttons) { 
         btn.onclick = function(event) {
-            // event.target is used because 'this' is prohibited [cite: 247]
+            // event.target is used because 'this' is prohibited
             let clickedBtn = event.target; 
             let letter = clickedBtn.value;
             handleLetterGuess(letter, clickedBtn);
@@ -80,7 +80,7 @@ function startGame() {
     categoryPanel.style.display = 'none';
     newGameBtn.disabled = true;
 
-    // Reset the Hangman Image to the gallows (0.png) [cite: 177, 197]
+    // Reset the Hangman Image to the gallows (0.png)
     hangmanImg.src = "images/0.png";
 
     // Find the correct category words array
@@ -92,10 +92,10 @@ function startGame() {
         }
     }
 
-    // Choose a random word [cite: 190, 236]
+    // Choose a random word
     let randomWord = wordsArray[Math.floor(Math.random() * wordsArray.length)];
 
-    // Initialize GameController [cite: 152, 193]
+    // Initialize GameController
     window.GameController.newGame(randomWord);
 
     // Reset UI for the fresh game
@@ -105,9 +105,9 @@ function startGame() {
 
 // 5. Handle a Letter Guess
 function handleLetterGuess(letter, buttonElement) {
-    buttonElement.disabled = true; // [cite: 200]
-    window.GameController.processLetter(letter); // [cite: 154, 201]
-    updateUI(); // [cite: 202]
+    buttonElement.disabled = true;
+    window.GameController.processLetter(letter);
+    updateUI();
 }
 
 // 6. Sync UI with GameController State
@@ -119,31 +119,36 @@ function updateUI() {
 
     let report = window.GameController.report();
 
-    // Update the word blanks and remaining guesses [cite: 195, 198]
+    // Update the word blanks and remaining guesses
     wordDisplay.innerHTML = report.guess.join(' '); 
     guessesDisplay.innerHTML = report.guessesRemaining; 
 
-    // Update the Hangman Graphic based on incorrect guesses [cite: 177, 206]
+    // Update the Hangman Graphic based on incorrect guesses
     // Max is 6; 6 remaining = image 0, 0 remaining = image 6
     let imageNumber = 6 - report.guessesRemaining; 
     hangmanImg.src = "images/" + imageNumber + ".png";
 
-    // Check for win/loss conditions [cite: 208, 211]
-    if (report.gameState === "GAME_OVER_WIN") {
-        messageDisplay.innerHTML = "You Won!";
+    // Check for win/loss conditions
+        if (report.gameState === "GAME_OVER_WIN") {
+        messageDisplay.innerHTML = "YOU WON!";
+        messageDisplay.className = "win-text"; // Applies green
         endGame();
     } else if (report.gameState === "GAME_OVER_LOSE") {
-        messageDisplay.innerHTML = "Game Over! The word was " + report.word;
+        messageDisplay.innerHTML = "GAME OVER! The word was: " + report.word;
+        messageDisplay.className = "lose-text"; // Applies red
         endGame();
+    } else {
+        messageDisplay.innerHTML = "";
+        messageDisplay.className = ""; // Clears color for new game
     }
 }
 
 // 7. Handle Game Over state
 function endGame() {
     const newGameBtn = document.querySelector('#new-game-btn');
-    newGameBtn.disabled = false; // [cite: 210]
+    newGameBtn.disabled = false;
     
-    // Disable all letter buttons using for...of [cite: 209]
+    // Disable all letter buttons using for...of
     let allLetterBtns = document.querySelectorAll('.letter-btn');
     for (let btn of allLetterBtns) {
         btn.disabled = true;

@@ -1,10 +1,10 @@
-/* Layout Overhaul */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #d1e9ff; /* The light blue from the mockup */
     margin: 0;
     padding: 0;
 }
+
 
 header {
     background-color: #ffffff;
@@ -30,65 +30,77 @@ header h1 {
     cursor: pointer;
 }
 
-
-
-/* Main Game Area: Image on Left, Info on Right */
 main {
     max-width: 1000px;
-    margin: 20px auto;
+    margin: 30px auto;
     display: grid;
-    grid-template-columns: 350px 1fr; /* Fixed width for image, rest for text */
-    gap: 30px;
-    padding: 20px;
+    /* Defines a 2-column layout with a dedicated keyboard row at the bottom */
+    grid-template-columns: 350px 1fr;
+    grid-template-areas: 
+        "image info"
+        "keyboard keyboard"; 
+    gap: 20px;
+    padding: 30px;
     background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-#visuals-area {
+#visuals-area { 
+    grid-area: image; 
     display: flex;
     justify-content: center;
-    align-items: center;
-    border-right: 1px solid #eee;
+    border-right: 2px solid #f0f0f0;
 }
+
+#game-info-column { 
+    grid-area: info; 
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#letters-container { 
+    grid-area: keyboard; 
+    display: flex;
+    flex-wrap: nowrap; /* Forces one line */
+    justify-content: space-between;
+    padding-top: 30px;
+    margin-top: 20px;
+    border-top: 2px solid #f0f0f0;
+}
+
+/* FIX: Prevent the word from wrapping */
+#word-display {
+    font-size: 2.8rem;
+    letter-spacing: 10px;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    margin: 20px 0;
+    white-space: nowrap; /* Crucial: Keeps letters on one line */
+    overflow-x: auto;    /* Adds scrollbar ONLY if word is way too long */
+}
+
+/* Win/Loss Coloring */
+.win-text { color: #28a745; font-size: 1.5rem; }
+.lose-text { color: #dc3545; font-size: 1.5rem; }
+
+/* Main Game Area: Image on Left, Info on Right */
+
+
 
 #hangman-img {
     max-width: 100%;
     height: auto;
 }
 
-/* Info Column */
-#game-info-column {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
 
 #game-status {
     margin-bottom: 30px;
     font-size: 1.1rem;
 }
 
-#word-display {
-    font-size: 3rem;
-    letter-spacing: 12px;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-    margin: 20px 0;
-    color: #222;
-}
-
-/* THE LETTERS: Strictly one line */
-#letters-container {
-    grid-column: 1 / -1; /* Spans across both columns */
-    display: flex;
-    flex-wrap: nowrap; /* PREVENTS WRAPPING */
-    justify-content: space-between;
-    gap: 4px;
-    padding: 20px 0;
-    margin-top: 20px;
-    border-top: 1px solid #eee;
-}
 
 .letter-btn {
     flex: 1; /* Makes every button take up equal space */
@@ -114,9 +126,6 @@ main {
     border-color: #ddd;
 }
 
-/* Win/Loss Styles */
-.win-text { color: #28a745; font-size: 1.5rem; font-weight: bold; }
-.lose-text { color: #dc3545; font-size: 1.5rem; font-weight: bold; }
 
 /* Category Modal overlay */
 #category-panel {
