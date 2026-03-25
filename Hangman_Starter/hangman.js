@@ -106,6 +106,21 @@ function startGame() {
 // 5. Handle a Letter Guess
 function handleLetterGuess(letter, buttonElement) {
     buttonElement.disabled = true;
+
+    // Retrieve the current game state to get the target word
+    let report = window.GameController.report();
+    let targetWord = report.word;
+
+    // Check if the guessed letter exists in the target word 
+    if (targetWord.indexOf(letter) >= 0) { // 
+        // Appends 'correct' to the class list so your CSS kicks in
+        buttonElement.className += " correct";
+    } else {
+        // Appends 'incorrect' to the class list
+        buttonElement.className += " incorrect";
+    }
+
+    // Process the guess and update the rest of the UI
     window.GameController.processLetter(letter);
     updateUI();
 }
