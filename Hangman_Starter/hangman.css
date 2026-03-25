@@ -80,11 +80,13 @@ main {
 #game-info-column {
     display: flex;
     flex-direction: column;
-    position: relative; /* For absolute positioning the guesses badge */
+    position: relative; 
     border: 3px solid #333;
     background-color: white;
     border-radius: 4px;
     overflow: hidden;
+    /* Prevents stretching to the bottom if the gallows is taller */
+    align-self: flex-start; 
 }
 
 /* Guesses Remaining Badge */
@@ -126,7 +128,7 @@ main {
     grid-template-columns: repeat(9, 1fr);
     gap: 12px;
     justify-content: center;
-    flex-grow: 1;
+    flex-grow: 1; /* Ensures it fills any available space inside the column */
 }
 
 /* Individual Keys */
@@ -140,7 +142,7 @@ main {
     font-family: 'Slackey', cursive;
     cursor: pointer;
     box-shadow: 1px 2px 0px rgba(0,0,0,0.2);
-    transition: transform 0.05s;
+    transition: transform 0.05s, background-color 0.2s;
     text-align: center;
     min-width: 50px;
 }
@@ -154,12 +156,28 @@ main {
     transform: translateY(1px);
 }
 
+/* Default Disabled State */
 .letter-btn:disabled {
     background-color: #adb5bd;
     color: #6c757d;
     cursor: not-allowed;
     box-shadow: none;
     opacity: 0.6;
+}
+
+/* Specific Feedback Colors for Disabled Buttons */
+.letter-btn.correct:disabled {
+    background-color: #28a745 !important; /* Green */
+    color: white !important;
+    border-color: #1e7e34;
+    opacity: 1;
+}
+
+.letter-btn.incorrect:disabled {
+    background-color: #dc3545 !important; /* Red */
+    color: white !important;
+    border-color: #bd2130;
+    opacity: 1;
 }
 
 /* Message Display (Win/Loss) */

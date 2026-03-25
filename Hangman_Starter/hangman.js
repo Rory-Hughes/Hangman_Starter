@@ -6,8 +6,8 @@ window.onload = function() {
     let xhr = new XMLHttpRequest();
     // Using the relative path to your data folder
     xhr.open("GET", "data/vocabularies.json");
-    xhr.onload = function() {
-        if (xhr.status === 200) {
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
             let data = JSON.parse(xhr.responseText);
             vocabulariesData = data.vocabularies;
             populateCategoryDropdown();
@@ -17,14 +17,14 @@ window.onload = function() {
 
     // Attach listener to New Game button
     const newGameBtn = document.querySelector('#new-game-btn');
-    newGameBtn.onclick = function() {
+    newGameBtn.addEventListener('click', function() {
         const categoryPanel = document.querySelector('#category-panel');
         categoryPanel.style.display = 'block'; 
-    };
+    });
 
     // Attach listener to the OK button in the category panel
     const startBtn = document.querySelector('#start-btn');
-    startBtn.onclick = startGame;
+    startBtn.addEventListener('click', startGame);
 
     // Initial keyboard setup
     createLetterButtons();
@@ -55,12 +55,12 @@ function createLetterButtons() {
     
     let buttons = document.querySelectorAll('.letter-btn');
     for (let btn of buttons) { 
-        btn.onclick = function(event) {
+        btn.addEventListener('click', function(event) {
             // event.target is used because 'this' is prohibited
             let clickedBtn = event.target; 
             let letter = clickedBtn.value;
             handleLetterGuess(letter, clickedBtn);
-        };
+        });
     }
 }
 
